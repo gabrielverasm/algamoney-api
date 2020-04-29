@@ -25,6 +25,7 @@ import br.com.binariodigital.algamoney.api.event.RecursoCriadoEvent;
 import br.com.binariodigital.algamoney.api.exceptionhandler.AlgamoneyExceptionHandler.Erro;
 import br.com.binariodigital.algamoney.api.model.Lancamento;
 import br.com.binariodigital.algamoney.api.repository.LancamentoRepository;
+import br.com.binariodigital.algamoney.api.repository.filter.LancamentoFilter;
 import br.com.binariodigital.algamoney.api.service.LancamentoService;
 import br.com.binariodigital.algamoney.api.service.exception.PessoaInexistenteOuInativaException;
 
@@ -45,8 +46,8 @@ public class LancamentoResource {
 	private MessageSource messageSource;
 
 	@GetMapping
-	public List<Lancamento> listar() {
-		return repository.findAll();
+	public List<Lancamento> pesquisar(LancamentoFilter filter) {
+		return repository.filtrar(filter);
 	}
 
 	@GetMapping("/{codigo}")
