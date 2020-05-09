@@ -31,6 +31,7 @@ import br.com.binariodigital.algamoney.api.exceptionhandler.AlgamoneyExceptionHa
 import br.com.binariodigital.algamoney.api.model.Lancamento;
 import br.com.binariodigital.algamoney.api.repository.LancamentoRepository;
 import br.com.binariodigital.algamoney.api.repository.filter.LancamentoFilter;
+import br.com.binariodigital.algamoney.api.repository.projection.ResumoLancamento;
 import br.com.binariodigital.algamoney.api.service.LancamentoService;
 import br.com.binariodigital.algamoney.api.service.exception.PessoaInexistenteOuInativaException;
 
@@ -54,6 +55,12 @@ public class LancamentoResource {
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
 	public Page<Lancamento> pesquisar(LancamentoFilter filter, Pageable pageable) {
 		return repository.filtrar(filter, pageable);
+	}
+
+	@GetMapping(params = "resumo")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
+	public Page<ResumoLancamento> resumir(LancamentoFilter filter, Pageable pageable) {
+		return repository.resumir(filter, pageable);
 	}
 
 	@GetMapping("/{codigo}")
